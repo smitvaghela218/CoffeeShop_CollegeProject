@@ -1,0 +1,79 @@
+﻿@using System.Data;
+
+<main id="main" classs="main">
+    <div class="pagetitle">
+        <h1 class="fs-2 text-center m-4">OrderDetail - Model</h1>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center m-4">
+                <h2 class="fs-5 fw-bold">Order Details</h2>
+                <a asp-controller="OrderDetail" asp-action="OrderDetailAddEdit" class="text-white btn btn-primary">Add Details</a>
+            </div>
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <p class="text-danger">@TempData["ErrorMessage"]</p>
+            }
+
+            <!-- Table with stripped rows -->
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">OrderDetailID</th>
+                        <th scope="col">OrderID</th>
+                        <th scope="col">ProductID</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">TotalAmount</th>
+                        <th scope="col">User</th>
+                        <th scope="col" colspan="2">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow order in Model.Rows)
+                    {
+                        <tr>
+                            <th scope="row">@order["OrderDetailID"]</th>
+                            <td>@order["OrderID"]</td>
+                            <td>@order["ProductID"]</td>
+                            <td>@order["Quantity"]</td>
+                            <td>@order["Amount"]</td>
+                            <td>@order["TotalAmount"]</td>
+                            <td>@order["UserName"]</td>
+                            <td><a asp-controller="OrderDetail" asp-action="OrderDetailEdit" asp-route-OrderDetailID="@order["OrderDetailID"]" class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td>
+                                <!-- Delete button triggers modal -->
+                                <a href="#" class="btn btn-outline-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteOrderDetailModal-@order["OrderDetailID"]">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
+                                <!-- Modal for delete confirmation -->
+                                <div class="modal fade" id="deleteOrderDetailModal-@order["OrderDetailID"]" tabindex="-1" aria-labelledby="deleteOrderDetailModalLabel-@order["OrderDetailID"]" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteOrderDetailModalLabel-@order["OrderDetailID"]">Confirm Order Detail Deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this order detail?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a asp-controller="OrderDetail" asp-action="OrderDetailDelete" asp-route-OrderDetailID="@order["OrderDetailID"]" class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+        </div>
+</main>

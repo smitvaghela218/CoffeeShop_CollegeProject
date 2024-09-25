@@ -1,0 +1,85 @@
+﻿@using System.Data;
+
+<main id="main" classs="main">
+    <div class="pagetitle">
+        <h1 class="fs-2 text-center m-4">Customer - Model</h1>
+    </div>
+        
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center m-4">
+                <h2 class="fs-5 fw-bold">Customer Details</h2>
+                <a asp-controller="Customer" asp-action="CustomerAddEdit" class="text-white btn btn-primary">Add Customer</a>
+            </div>
+
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <p class="text-danger">@TempData["ErrorMessage"]</p>
+            }
+
+            <!-- Table with stripped rows -->
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">CustomerID</th>
+                        <th scope="col">CustomerName</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Home Address</th>
+                        <th scope="col">MobileNo</th>
+                        <th scope="col">City Name</th>
+                        <th scope="col">PinCode</th>
+                        <th scope="col">GST NO</th>
+                        <th scope="col">Net Amount</th>
+                        <th scope="col">UserID</th>
+                        <th scope="col" colspan="2">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow customer in Model.Rows)
+                    {
+                        <tr>
+                            <th scope="row">@customer["CustomerID"]</th>
+                            <td>@customer["CustomerName"]</td>
+                            <td>@customer["Email"]</td>
+                            <td>@customer["HomeAddress"]</td>
+                            <td>@customer["MobileNo"]</td>
+                            <td>@customer["CityName"]</td>
+                            <td>@customer["PinCode"]</td>
+                            <td>@customer["GST_NO"]</td>
+                            <td>@customer["NetAmount"]</td>
+                            <td>@customer["UserName"]</td>
+                            <td><a asp-controller="Customer" asp-action="CustomerEdit" asp-route-CustomerID="@customer["CustomerID"]"  class="btn btn-outline-success"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td>
+                                <!-- Delete button triggers modal -->
+                                <a href="#" class="btn btn-outline-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteCustomerModal-@customer["CustomerID"]">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+
+                                <!-- Modal for delete confirmation -->
+                                <div class="modal fade" id="deleteCustomerModal-@customer["CustomerID"]" tabindex="-1" aria-labelledby="deleteCustomerModalLabel-@customer["CustomerID"]" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteCustomerModalLabel-@customer["CustomerID"]">Confirm Customer Deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this customer?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <a asp-controller="Customer" asp-action="CustomerDelete" asp-route-CustomerID="@customer["CustomerID"]" class="btn btn-danger">Delete</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+        </div>
+</main>

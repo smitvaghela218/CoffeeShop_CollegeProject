@@ -1,0 +1,95 @@
+﻿@model UserModel;
+
+<main id="main" class="main">
+    
+    @if (Model is  null)
+    {
+        <div class="pagetitle">
+            <h1 class="fs-2 text-center m-4">Add User</h1>
+        </div>
+    }
+    @if (Model is not null)
+    {
+        <div class="pagetitle">
+            <h1 class="fs-2 text-center m-4">Edit User</h1>
+        </div>
+    }
+    
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+
+                <div class="card">
+                    <div class="card-body p-3">
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" asp-action="UserSave">
+                            <input type="hidden" asp-for="UserID" />
+
+                            <div class="col-md-12">
+                                <label for="UserName" class="form-label">
+                                    <span class="text-danger">*</span> User Name</label>
+                                <input type="text" class="form-control" id="UserName" asp-for="UserName">
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span class="text-danger">*</span>
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span class="text-danger">*</span>
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                                <input type="password" class="form-control  hidpassw" id="inputPassword" asp-for="Password">
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span class="text-danger">*</span>
+                                <label for="Address" class="form-label">Address</label>
+                                <textarea rows="3" class="form-control" id="Address" asp-for="Address"></textarea>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span class="text-danger">*</span>
+                                <label for="MobileNo" class="form-label">Mobile Number</label>
+                                <input type="text" class="form-control" id="MobileNo" asp-for="MobileNo">
+                                <span asp-validation-for="MobileNo" class="text-danger"></span>
+                            </div>
+
+                            <fieldset class="col-md-12">
+
+                                <legend class="col-form-label col-sm-2 pt-0">Is Active?</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked asp-for="IsActive">
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" asp-for="IsActive">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        No
+                                    </label>
+                                </div>
+                            </fieldset>
+                            <span asp-validation-for="IsActive" class="text-danger"></span>
+
+                            <div class="text-center m-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a asp-controller="User" asp-action="UserList" class="text-white btn btn-secondary">Cancel</a>
+                            </div>
+                        </form><!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

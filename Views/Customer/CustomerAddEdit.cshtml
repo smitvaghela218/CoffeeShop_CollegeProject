@@ -1,0 +1,95 @@
+﻿@model CustomerModel;
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="fs-2 text-center m-4">Customer Details</h1>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+
+                <div class="card">
+                    <div class="card-body p-3">
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" asp-action="customerSave">
+                            <input type="hidden" asp-for="CustomerID" />
+
+                            <div class="col-md-12">
+                                <label for="CustomerName" class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="CustomerName" asp-for="CustomerName">
+                                <span asp-validation-for="CustomerName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="HomeAddress" class="form-label">Home Address</label>
+                                <textarea rows="3" class="form-control" id="HomeAddress" asp-for="HomeAddress">Shipping Address</textarea>
+                                <span asp-validation-for="HomeAddress" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="MobileNo" class="form-label">Mobile Number</label>
+                                <input type="text" class="form-control" id="MobileNo" asp-for="MobileNo">
+                                <span asp-validation-for="MobileNo" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="GST_NO" class="form-label">GST NO</label>
+                                <input type="text" class="form-control" id="GST_NO" asp-for="GST_NO">
+                                <span asp-validation-for="GST_NO" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="CityName" class="form-label">City Name</label>
+                                <input type="text" class="form-control" id="CityName" asp-for="CityName">
+                                <span asp-validation-for="CityName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="PinCode" class="form-label">PinCode</label>
+                                <input type="text" class="form-control" id="PinCode" asp-for="PinCode">
+                                <span asp-validation-for="PinCode" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="NetAmount" class="form-label">NetAmount</label>
+                                <input type="number" class="form-control" id="NetAmount" asp-for="NetAmount">
+                                <span asp-validation-for="NetAmount" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="UserID" class="form-label">User</label>
+
+                                <select class="form-control form-select" id="UserID" asp-for="UserID" asp-items="@(new SelectList(ViewBag.UserList, "UserID", "UserName"))">
+                                    <option value="">Select User</option>
+                                </select>
+
+                                @* <select class="form-control" asp-for="UserID">
+                                    <option value="">Select User</option>
+                                    @foreach (var user in ViewBag.UserList)
+                                    {
+                                        <option value="@user.UserID">@user.UserName</option>
+                                    }
+                                </select> *@
+
+                                <span asp-validation-for="UserID" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a asp-controller="Customer" asp-action="CustomerList" class="text-white btn btn-secondary">Cancel</a>
+                            </div>
+                        </form><!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

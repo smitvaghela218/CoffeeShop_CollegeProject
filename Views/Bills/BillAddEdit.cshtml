@@ -1,0 +1,93 @@
+﻿@model BillsModel;
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="fs-2 text-center m-4">Bill Details</h1>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+
+                <div class="card">
+                    <div class="card-body p-3">
+
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" asp-action="BillSave">
+                            <input type="hidden" asp-for="BillID" />
+
+                            <div class="col-md-12">
+                                <label for="BillNumber" class="form-label">BillNumber</label>
+                                <input type="number" class="form-control" id="BillNumber" asp-for="BillNumber">
+                                <span asp-validation-for="BillNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="BillDate" class="form-label">Bill Date</label>
+                                <input type="date" class="form-control" id="BillDate" asp-for="BillDate" max="@DateTime.Now.ToString("yyyy-MM-dd")">
+                                <span asp-validation-for="BillDate" class="text-danger"></span>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <label for="OrderID" class="form-label">OrderDate</label>
+                                <select class="form-control form-select" id="OrderID" asp-for="OrderID" asp-items="@(new SelectList(ViewBag.OrderList, "OrderID", "OrderDate"))">
+                                    <option value="">Select Order</option>
+                                </select>
+
+                                @* <select class="form-control" asp-for="OrderID">
+                                <option value="">Select Order</option>
+                                @foreach (var order in ViewBag.OrderList)
+                                {
+                                <option value="@order.OrderID">@order.OrderDate</option>
+                                }
+                                </select> *@
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="Discount" class="form-label">Discount</label>
+                                <input type="number" class="form-control" id="Discount" asp-for="Discount">
+                                <span asp-validation-for="Discount" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="TotalAmount" class="form-label">Total Amount</label>
+                                <input type="number" class="form-control" id="TotalAmount" asp-for="TotalAmount">
+                                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="NetAmount" class="form-label">NetAmount</label>
+                                <input type="number" class="form-control" id="NetAmount" asp-for="NetAmount">
+                                <span asp-validation-for="NetAmount" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="UserID" class="form-label">User</label>
+
+                                <select class="form-control form-select" id="UserID" asp-for="UserID" asp-items="@(new SelectList(ViewBag.UserList, "UserID", "UserName"))">
+                                    <option value="">Select User</option>
+                                </select>
+
+                                @* <select class="form-control" asp-for="UserID">
+                                <option value="">Select User</option>
+                                @foreach (var user in ViewBag.UserList)
+                                {
+                                <option value="@user.UserID">@user.UserName</option>
+                                }
+                                </select> *@
+
+                                <span asp-validation-for="UserID" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a asp-controller="Bills" asp-action="BillsList" class="text-white btn btn-secondary">Cancel</a>
+                            </div>
+                        </form><!-- End Multi Columns Form -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

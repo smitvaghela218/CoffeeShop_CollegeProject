@@ -1,0 +1,68 @@
+﻿@model ProductModel;
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1 class="fs-2 text-center m-4">Product Details</h1>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" asp-action="ProductSave">
+                            <input type="hidden" asp-for="ProductID" />
+
+                            <div class="col-md-12">
+                                <label for="ProductName" class="form-label">
+                                    <span class="text-danger">*</span> Product Name
+                                </label> 
+                                <input type="text" class="form-control" id="ProductName" asp-for="ProductName">
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="Description" class="form-label">
+                                    <span class="text-danger">*</span> Product Description
+                                </label>
+                                <textarea rows="3" class="form-control" id="Description" asp-for="Description">Product Description</textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ProductPrice" class="form-label">
+                                    <span class="text-danger">*</span> Product Price
+                                </label>
+                                <input type="number" class="form-control" id="ProductPrice" asp-for="ProductPrice">
+                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ProductCode" class="form-label">
+                                    <span class="text-danger">*</span> Product Code
+                                </label>
+                                <input type="text" class="form-control" id="ProductCode" asp-for="ProductCode">
+                                <span asp-validation-for="ProductCode" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="UserID" class="form-label">
+                                    <span class="text-danger">*</span> User
+                                </label>
+                                <select class="form-control form-select" id="UserID" asp-for="UserID" asp-items="@(new SelectList(ViewBag.UserList, "UserID", "UserName"))">
+                                    <option value="">Select User</option>
+                                </select>
+                                <span asp-validation-for="UserID" class="text-danger"></span>
+                            </div>
+
+                            <div class="text-center m-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a asp-controller="Product" asp-action="ProductList" class="text-white btn btn-secondary">Cancel</a>
+                            </div>
+                        </form><!-- End Multi Columns Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
